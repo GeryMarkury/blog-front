@@ -1,20 +1,35 @@
-import { useState } from "react";
-import "./App.css";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import HomePage from "scenes/homePage";
+import LoginPage from "scenes/loginPage";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "./theme";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const mode = useSelector(state => state.mode);
+	const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+	const isAuth = Boolean(useSelector(state => state.token));
 
 	return (
-		<>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-				<p>
-					Edit <code>src/App.jsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-		</>
+		<div className="app">
+			<BrowserRouter basename={import.meta.env.DEV ? "/" : "blog-front"}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Routes>
+						<Route
+							path="/"
+							element={<LoginPage />}
+						/>
+						<Route
+							path="/home"
+							element={isAuth ? <HomePage /> : <Navigate to="/" />}
+						/>
+					</Routes>
+				</ThemeProvider>
+			</BrowserRouter>
+		</div>
 	);
 }
 
