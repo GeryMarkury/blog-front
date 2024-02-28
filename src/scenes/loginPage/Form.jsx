@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "state";
+import { setLogin } from "../../state/index.js";
 import { Loader } from "../../components/Loader.jsx";
 import { Report } from "notiflix/build/notiflix-report-aio";
 
@@ -45,10 +45,14 @@ const Form = () => {
 	const register = async (values, onSubmitProps) => {
 		setIsLoading(true);
 
+		const data = JSON.stringify(values);
+
 		const savedUserResponse = await fetch("https://blog-back-743n.onrender.com/users/register", {
 			method: "POST",
-			body: JSON.stringify(values),
+			headers: { "Content-Type": "application/json" },
+			body: data,
 		});
+
 		const savedUser = await savedUserResponse.json();
 		onSubmitProps.resetForm();
 
@@ -70,6 +74,7 @@ const Form = () => {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(values),
 		});
+
 		const loggedIn = await loggedInResponse.json();
 		onSubmitProps.resetForm();
 		if (loggedIn) {
@@ -128,26 +133,6 @@ const Form = () => {
 										error={Boolean(touched.lastName) && Boolean(errors.lastName)}
 										helperText={touched.lastName && errors.lastName}
 										sx={{ gridColumn: "span 2" }}
-									/>
-									<TextField
-										label="Location"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.location}
-										name="location"
-										error={Boolean(touched.location) && Boolean(errors.location)}
-										helperText={touched.location && errors.location}
-										sx={{ gridColumn: "span 4" }}
-									/>
-									<TextField
-										label="Occupation"
-										onBlur={handleBlur}
-										onChange={handleChange}
-										value={values.occupation}
-										name="occupation"
-										error={Boolean(touched.occupation) && Boolean(errors.occupation)}
-										helperText={touched.occupation && errors.occupation}
-										sx={{ gridColumn: "span 4" }}
 									/>
 								</>
 							)}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setPosts } from "../../state/index.js";
 import PostWidget from "./PostWidget.jsx";
 import { Loader } from "../../components/Loader.jsx";
 

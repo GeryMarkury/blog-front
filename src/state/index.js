@@ -21,6 +21,7 @@ export const authSlice = createSlice({
 		setLogout: state => {
 			state.user = null;
 			state.token = null;
+			state.posts = [];
 		},
 		setPosts: (state, action) => {
 			state.posts = action.payload.posts;

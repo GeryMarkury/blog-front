@@ -11,7 +11,7 @@ import UserImage from "../../components/UserImage.jsx";
 import WidgetWrapper from "../../components/WidgetWrapper.jsx";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setPosts } from "../../state/index.js";
 import { Loader } from "../../components/Loader.jsx";
 
 const MyPostWidget = ({ picturePath }) => {
@@ -24,20 +24,21 @@ const MyPostWidget = ({ picturePath }) => {
 	const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
 	const mediumMain = palette.neutral.mediumMain;
-	const medium = palette.neutral.medium;
 
 	const handlePost = async () => {
 		setIsLoading(true);
-		const formData = new FormData();
-		formData.append("header", header);
-		formData.append("content", post);
+		const postData = {
+			header: header,
+			content: post,
+		};
 
 		const response = await fetch(`https://blog-back-743n.onrender.com/posts`, {
 			method: "POST",
-			headers: { Authorization: `Bearer ${token}` },
-			body: formData,
+			headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+			body: JSON.stringify(postData),
 		});
 		const posts = await response.json();
+
 		dispatch(setPosts({ posts }));
 		setPost("");
 		setHeader("");
@@ -48,14 +49,18 @@ const MyPostWidget = ({ picturePath }) => {
 		<>
 			{isLoading && <Loader />}
 			<WidgetWrapper>
-				<FlexBetween gap="1.5rem">
+				<FlexBetween
+					gap="1.5rem"
+					flexDirection="column"
+					alignItems="center"
+				>
 					<UserImage image={picturePath} />
 					<InputBase
 						placeholder="Write a title"
 						onChange={e => setHeader(e.target.value)}
 						value={header}
 						sx={{
-							width: "100%",
+							width: "50%",
 							backgroundColor: palette.neutral.light,
 							borderRadius: "2rem",
 							padding: "1rem 2rem",
@@ -66,7 +71,7 @@ const MyPostWidget = ({ picturePath }) => {
 						onChange={e => setPost(e.target.value)}
 						value={post}
 						sx={{
-							width: "100%",
+							width: "50%",
 							backgroundColor: palette.neutral.light,
 							borderRadius: "2rem",
 							padding: "1rem 2rem",
@@ -77,12 +82,7 @@ const MyPostWidget = ({ picturePath }) => {
 				<FlexBetween>
 					<FlexBetween gap="0.25rem">
 						<ImageOutlined sx={{ color: mediumMain }} />
-						<Typography
-							color={mediumMain}
-							sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-						>
-							Image
-						</Typography>
+						<Typography color={mediumMain}>Image</Typography>
 					</FlexBetween>
 					{isNonMobileScreens ? (
 						<>

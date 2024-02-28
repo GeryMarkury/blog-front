@@ -4,8 +4,9 @@ import WidgetWrapper from "../../components/WidgetWrapper.jsx";
 const PostWidget = ({ name, content, header, date }) => {
 	const { palette } = useTheme();
 	const main = palette.neutral.main;
+	const medium = palette.neutral.medium;
 
-	const formattedDate = date.toLocaleString();
+	const formattedDate = new Date(date).toLocaleString();
 
 	return (
 		<WidgetWrapper m="2rem 0">
@@ -13,12 +14,6 @@ const PostWidget = ({ name, content, header, date }) => {
 				color={main}
 				variant="h5"
 				fontWeight="500"
-				sx={{
-					"&:hover": {
-						color: palette.primary.light,
-						cursor: "pointer",
-					},
-				}}
 			>
 				{name}
 			</Typography>
@@ -32,12 +27,6 @@ const PostWidget = ({ name, content, header, date }) => {
 				color={main}
 				variant="h4"
 				fontWeight="400"
-				sx={{
-					"&:hover": {
-						color: palette.primary.light,
-						cursor: "pointer",
-					},
-				}}
 			>
 				{header}
 			</Typography>
