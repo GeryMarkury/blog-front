@@ -1,5 +1,5 @@
 import { Typography, useTheme } from "@mui/material";
-import WidgetWrapper from "components/WidgetWrapper";
+import WidgetWrapper from "../../components/WidgetWrapper.jsx";
 
 const PostWidget = ({ name, content, header, date }) => {
 	const { palette } = useTheme();

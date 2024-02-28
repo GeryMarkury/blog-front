@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "state";
-import { Loader } from "components/Loader";
+import { Loader } from "../../components/Loader.jsx";
 import { Report } from "notiflix/build/notiflix-report-aio";
 
 const registerSchema = yup.object().shape({

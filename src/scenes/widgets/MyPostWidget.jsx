@@ -6,13 +6,13 @@ import {
 	MoreHorizOutlined,
 } from "@mui/icons-material";
 import { Divider, Typography, InputBase, useTheme, Button, useMediaQuery } from "@mui/material";
-import FlexBetween from "components/FlexBetween";
-import UserImage from "components/UserImage";
-import WidgetWrapper from "components/WidgetWrapper";
+import FlexBetween from "../../components/FlexBetween.jsx";
+import UserImage from "../../components/UserImage.jsx";
+import WidgetWrapper from "../../components/WidgetWrapper.jsx";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
-import { Loader } from "components/Loader";
+import { Loader } from "../../components/Loader.jsx";
 
 const MyPostWidget = ({ picturePath }) => {
 	const dispatch = useDispatch();
