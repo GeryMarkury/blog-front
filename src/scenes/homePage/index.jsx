@@ -6,7 +6,7 @@ import PostsWidget from "scenes/widgets/PostsWidget";
 
 const HomePage = () => {
 	const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-	const { _id } = useSelector(state => state.user);
+	const { avatarURL } = useSelector(state => state.user);
 
 	return (
 		<Box>
@@ -15,11 +15,8 @@ const HomePage = () => {
 				flexBasis={isNonMobileScreens ? "42%" : undefined}
 				mt={isNonMobileScreens ? undefined : "2rem"}
 			>
-				<MyPostWidget />
-				<PostsWidget
-					userId={_id}
-					isProfile
-				/>
+				<MyPostWidget picturePath={avatarURL} />
+				<PostsWidget />
 			</Box>
 		</Box>
 	);
